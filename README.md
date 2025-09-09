@@ -25,6 +25,18 @@ A comprehensive map tiles component for ESP-IDF projects using LVGL 9.x. This co
 
 ### Using ESP-IDF Component Manager
 
+You can easily add this component to your project using the idf.py command or by manually updating your idf_component.yml file.
+
+#### Option 1: Using the idf.py add-dependency command (Recommended)
+From your project's root directory, simply run the following command in your terminal:
+
+```bash
+idf.py add-dependency "0015/map_tiles^1.1.0"
+```
+
+This command will automatically add the component to your idf_component.yml file and download the required files the next time you build your project.
+
+#### Option 2: Manual idf_component.yml update
 Add to your project's `main/idf_component.yml`:
 
 ```yaml

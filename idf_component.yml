@@ -1,3 +1,5 @@
+namespace: "0015"
+name: "map_tiles"
 version: "1.1.0"
 maintainers:
   - Eric Nam <thatprojectstudio@gmail.com>
