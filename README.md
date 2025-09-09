@@ -17,7 +17,7 @@ A comprehensive map tiles component for ESP-IDF projects using LVGL 9.x. This co
 ## Requirements
 
 - ESP-IDF 5.0 or later
-- LVGL 9.x
+- LVGL 9.3
 - File system support (FAT/SPIFFS/LittleFS)
 - Map tiles in binary format (RGB565, 256x256 pixels)
 
@@ -30,7 +30,7 @@ Add to your project's `main/idf_component.yml`:
 ```yaml
 dependencies:
   map_tiles:
-    git: "https://github.com/0015/map_tiles_component.git"
+    git: "https://github.com/0015/map_tiles.git"
     version: "^1.1.0"
 ```
 
