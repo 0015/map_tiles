@@ -1,0 +1,27 @@
+version: "1.1.0"
+maintainers:
+  - Eric Nam <thatprojectstudio@gmail.com>
+description: "Map tiles component for LVGL 9.x - Load and display map tiles with GPS coordinate conversion"
+url: "https://github.com/0015/map_tiles"
+license: "MIT"
+
+dependencies:
+  lvgl/lvgl: ">=9.3.0"
+  idf: ">=5.0"
+
+targets:
+  - esp32
+  - esp32s2
+  - esp32s3
+  - esp32c3
+  - esp32c6
+  - esp32h2
+  - esp32p4
+
+keywords:
+  - lvgl
+  - map
+  - tiles
+  - gps
+  - graphics
+  - ui
