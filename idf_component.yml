@@ -1,6 +1,6 @@
 namespace: "0015"
 name: "map_tiles"
-version: "1.1.0"
+version: "1.2.0"
 maintainers:
   - Eric Nam <thatprojectstudio@gmail.com>
 description: "Map tiles component for LVGL 9.x - Load and display map tiles with GPS coordinate conversion"

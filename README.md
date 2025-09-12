@@ -31,7 +31,7 @@ You can easily add this component to your project using the idf.py command or by
 From your project's root directory, simply run the following command in your terminal:
 
 ```bash
-idf.py add-dependency "0015/map_tiles^1.1.0"
+idf.py add-dependency "0015/map_tiles^1.2.0"
 ```
 
 This command will automatically add the component to your idf_component.yml file and download the required files the next time you build your project.
@@ -43,7 +43,7 @@ Add to your project's `main/idf_component.yml`:
 dependencies:
   map_tiles:
     git: "https://github.com/0015/map_tiles.git"
-    version: "^1.1.0"
+    version: "^1.2.0"
 ```
 
 ### Manual Installation
