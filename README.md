@@ -2,6 +2,16 @@
 
 A comprehensive map tiles component for ESP-IDF projects using LVGL 9.x. This component provides functionality to load and display map tiles with GPS coordinate conversion, designed for embedded applications requiring offline map display capabilities.
 
+## Recent Updates
+
+**v1.3.0 (December 20, 2025)**
+- **Fixed critical marker positioning bugs in example code:**
+  - Bug Fix #1: Corrected `map_display_add_marker()` to calculate position from actual GPS coordinates instead of using stored offset
+  - Bug Fix #2: Added scroll position compensation for scrollable map containers
+  - Markers now appear at correct GPS locations regardless of map center position, zoom level, or scroll position
+- Enhanced debug logging with detailed marker calculation information
+- Added bounds checking for marker positions with warnings
+
 ## Features
 
 - **LVGL 9.x Compatible**: Fully compatible with LVGL 9.x image handling

@@ -197,9 +197,40 @@ void map_display_add_marker(double lat, double lon)
         return;
     }
     
-    // Get marker offset within the current tile grid
-    int offset_x, offset_y;
-    map_tiles_get_marker_offset(map_handle, &offset_x, &offset_y);
+    // Convert GPS to tile coordinates
+    double tile_x, tile_y;
+    map_tiles_gps_to_tile_xy(map_handle, lat, lon, &tile_x, &tile_y);
+    
+    // Get current grid position (top-left tile)
+    int base_tile_x, base_tile_y;
+    map_tiles_get_position(map_handle, &base_tile_x, &base_tile_y);
+    
+    // Calculate absolute pixel position of marker
+    int abs_px = (int)(tile_x * MAP_TILES_TILE_SIZE);
+    int abs_py = (int)(tile_y * MAP_TILES_TILE_SIZE);
+    
+    // Calculate top-left pixel position of current tile grid
+    int top_left_px_x = base_tile_x * MAP_TILES_TILE_SIZE;
+    int top_left_px_y = base_tile_y * MAP_TILES_TILE_SIZE;
+    
+    // Get scroll position if map is scrollable
+    lv_coord_t scroll_x = lv_obj_get_scroll_x(map_container);
+    lv_coord_t scroll_y = lv_obj_get_scroll_y(map_container);
+    
+    // Calculate marker position relative to current view
+    int marker_x = abs_px - top_left_px_x - scroll_x - 5;  // -5 to center the 10px marker
+    int marker_y = abs_py - top_left_px_y - scroll_y - 5;
+    
+    ESP_LOGI(TAG, "Marker calculation: tile_xy=(%.3f,%.3f) base=(%d,%d) abs_px=(%d,%d) scroll=(%d,%d) pixel=(%d,%d)",
+             tile_x, tile_y, base_tile_x, base_tile_y, abs_px, abs_py, scroll_x, scroll_y, marker_x, marker_y);
+    
+    // Check if marker is within visible bounds
+    int container_width = grid_cols * MAP_TILES_TILE_SIZE;
+    int container_height = grid_rows * MAP_TILES_TILE_SIZE;
+    if (marker_x < -10 || marker_x > container_width || marker_y < -10 || marker_y > container_height) {
+        ESP_LOGW(TAG, "Marker at (%d, %d) is outside visible bounds (0,0) to (%d,%d)",
+                 marker_x, marker_y, container_width, container_height);
+    }
     
     // Create or update marker object
     static lv_obj_t* marker = NULL;
@@ -212,15 +243,10 @@ void map_display_add_marker(double lat, double lon)
         lv_obj_set_style_border_color(marker, lv_color_hex(0xFFFFFF), 0);
     }
     
-    // Position marker based on GPS offset
-    int center_tile_col = grid_cols / 2;
-    int center_tile_row = grid_rows / 2;
-    int marker_x = center_tile_col * MAP_TILES_TILE_SIZE + offset_x - 5;
-    int marker_y = center_tile_row * MAP_TILES_TILE_SIZE + offset_y - 5;
-    
     lv_obj_set_pos(marker, marker_x, marker_y);
     
-    ESP_LOGI(TAG, "GPS marker positioned at (%d, %d)", marker_x, marker_y);
+    ESP_LOGI(TAG, "GPS marker at (%.6f, %.6f) positioned at pixel (%d, %d)", 
+             lat, lon, marker_x, marker_y);
 }
 
 /**
