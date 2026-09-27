@@ -24,3 +24,6 @@ __pycache__/
 .Python
 *.egg-info/
 dist/
+
+# Codex
+.codex/
